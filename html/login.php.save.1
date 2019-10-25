@@ -1,0 +1,21 @@
+<?PHP
+error_reporting(E_ALL);
+
+
+
+ini_set('display_errors', 1);
+if(isset($_GET['mobile']) && !empty(isset($_GET['mobile'])) 
+  && isset($_GET['password']) && !empty(isset($_GET['password']))){ 
+    include_once("connection.php"); 
+    $mobile = $_GET['mobile']; 
+    $password = $_GET['password'];     
+    $sql = "SELECT mobile,password FROM people 
+          WHERE mobile = '$mobile' AND password = '$password'"; 
+    $result = $conn->query($sql); 
+  if ($result->num_rows > 0) { 
+    echo "LoginSuccess"; 
+  } 
+  else { 
+    echo "Error: "; 
+  }
+}?>

@@ -1,0 +1,27 @@
+<?PHP
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+class Login
+{  
+      var $successId; 
+      var $userId; 
+}
+$data=new Login;
+if(isset($_GET['mobile']) && !empty(isset($_GET['mobile'])) 
+  && isset($_GET['password']) && !empty(isset($_GET['password']))){ 
+    include_once("connection.php"); 
+    $mobile = $_GET['mobile']; 
+    $password = $_GET['password'];     
+    $sql = "SELECT  FROM people 
+          WHERE mobile = '$mobile' AND password = '$password'"; 
+    $result = $conn->query($sql); 
+  if ($result->num_rows > 0) { 
+    $data->successId="1"
+    $dta->userId= 
+  } 
+  else { 
+    echo "Error: "; 
+  }
+}?>
