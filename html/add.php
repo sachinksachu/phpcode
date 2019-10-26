@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     {
 	 
        // if(mysqli_query($con,"insert into event(id,eventname,description,location,event_date,event_time,photo) values ('','$eventname', '$description', '$location','$event_date','$event_time','')"))
-	if(mysqli_query($con,"INSERT INTO `event` (`id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`) VALUES (NULL, '$eventname', '$description', '$location', '$event_date', '$event_time', '$img')"))
+	if(mysqli_query($con,"INSERT INTO `event` (`event_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`) VALUES (NULL, '$eventname', '$description', '$location', '$event_date', '$event_time', '$img')"))
         {
 		//echo "dF";
 //filling response array with values
