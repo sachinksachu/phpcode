@@ -32,11 +32,24 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
        // if(mysqli_query($con,"insert into event(id,eventname,description,location,event_date,event_time,photo) values ('','$eventname', '$description', '$location','$event_date','$event_time','')"))
 	if(mysqli_query($con,"INSERT INTO `event` (`event_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`) VALUES (NULL, '$eventname', '$description', '$location', '$event_date', '$event_time', '$img')"))
         {
+		$last_id = mysqli_insert_id($con);
 		//echo "dF";
 //filling response array with values
             $response['error'] = false;
             $response['eventname'] = $eventname;
             $response['description'] = $description;
+
+	//notification
+		$sql="select token from people";
+	$result=mysqli_query($con,$sql);
+	
+		while($row = mysqli_fetch_assoc($result)) 
+		{
+        
+			sendFCM("['$last_id','$eventname',$description,'$location','$event_date','$event_time','$img']","EVENT",$row["token"]);
+			echo $row["token"];
+    		}
+	
         }
 //if some error occurred
     }catch(Exception $e){
@@ -51,6 +64,31 @@ else{
     $response['message']='Please choose a file';
 }
 
+function sendFCM($mess,$title,$id) {
+$url = 'https://fcm.googleapis.com/fcm/send';
+$fields = array (
+        'to' => $id,
+        'notification' => array (
+                "body" => $mess,
+                "title" => $title,
+                "icon" => "myicon"
+        )
+);
+$fields = json_encode ( $fields );
+$headers = array (
+        'Authorization: key=' . "AIzaSyA1_Z3LYJl4El19YpcpIEZ-bGYoJlSMRbg",
+        'Content-Type: application/json'
+);
 
+$ch = curl_init ();
+curl_setopt ( $ch, CURLOPT_URL, $url );
+curl_setopt ( $ch, CURLOPT_POST, true );
+curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
+curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
+
+$result = curl_exec ( $ch );
+curl_close ( $ch );
+}
 
 ?>
