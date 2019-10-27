@@ -1,4 +1,7 @@
 <?php
+echo "df";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
 function sendFCM($mess,$title,$id) {
 $url = 'https://fcm.googleapis.com/fcm/send';
@@ -26,5 +29,21 @@ curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
 $result = curl_exec ( $ch );
 curl_close ( $ch );
 }
-sendFCM("['sdsd','a.jpg']","EVENT","enymcMIa3w0:APA91bGsyll2bT9uO9XlXttBE_-jnmoigq2LBWM_7nEHwTc1faDA7opoFdQ37kcDh-G80HCIXcC-uumri3sTPqJFdGYhNE59ZJmxCEhhsC8w-uUqc9yoINksWh80S_FWmS1IFb2B1k1u");
+
+$con = mysqli_connect("localhost","root","SACHIN@1997v6","event_test");
+if($con)
+{
+	echo "df";
+	$sql="select token from people";
+	$result=mysqli_query($con,$sql);
+	
+		while($row = mysqli_fetch_assoc($result)) 
+		{
+        
+			sendFCM("['sdsd','a.jpg']","EVENT",$row["token"]);
+			echo $row["token"];
+    		}
+	
+}
+
 ?>
