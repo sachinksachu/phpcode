@@ -3,8 +3,10 @@ $con = mysqli_connect("localhost","root","SACHIN@1997v6","event_test");
 if(!$con)
 echo "error connecting to db";
 
-
-$sql = "select * from event";
+if($_SERVER['REQUEST_METHOD']=='POST'){
+	$location = $_POST['location'];
+}
+$sql = "select * from event where location = '$location'";
 $result = $con->query($sql);
 
 if($result->num_rows > 0)

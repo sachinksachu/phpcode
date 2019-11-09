@@ -8,8 +8,8 @@ $mobile = $_POST['mobile'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-if(mysqli_query($con,"INSERT INTO `coordinator` (`id`, `coordinator_name`, `coordinator_mobile`, `coordinator_email`, `password`) VALUES (NULL, '$name', '$mobile', '$email', '$password');"))
-echo '{"status":"added"}';
+if(mysqli_query($con,"INSERT INTO `coordinator` (`coord_id`, `coordinator_name`, `coordinator_mobile`, `coordinator_email`, `password`) VALUES (NULL, '$name', '$mobile', '$email', '$password');"))
+echo "success";
 else
-echo '{"status":"failed"}';
+echo "failed";
 ?>

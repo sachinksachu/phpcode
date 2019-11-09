@@ -7,13 +7,23 @@ if(isset($_POST['mobile']) && !empty(isset($_POST['mobile']))
     include_once("connection.php"); 
     $mobile = $_POST['mobile']; 
     $password = $_POST['password'];     
-    $sql = "SELECT mobile,password FROM people 
+    $sql = "SELECT user_id FROM people 
           WHERE mobile = '$mobile' AND password = '$password'"; 
+
     $result = $conn->query($sql); 
-  if ($result->num_rows > 0) { 
-    echo "LoginSuccess"; 
-  } 
+
+  if ($result->num_rows > 0)
+	{ 
+    		 while($row = $result->fetch_assoc())
+			{
+			echo $row["user_id"];
+
+			//$json =  json_encode($tem);
+			}
+  	} 
+
   else { 
-    echo "Error: "; 
+    echo "0"; 
   }
-}?>
+}
+?>

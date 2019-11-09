@@ -4,9 +4,11 @@ if(!$con)
 echo "error connecting to db";
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
-	//$location = $_POST['location'];
+	$coord_id_s = $_POST['coord_id'];
+	$coord_id = (int)$coord_id_s;
 }
-$sql = "select * from event where event_id = '42'";
+$sql = "select * from event where coord_id = '$coord_id'";
+
 $result = $con->query($sql);
 
 if($result->num_rows > 0)
