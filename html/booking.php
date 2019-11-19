@@ -32,6 +32,5 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 }
 else{
     $response['error']=true;
-    $response['message']='Please choose a file';
 }
 ?> 
