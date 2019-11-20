@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	//echo $event_id_int;
 	 
        // if(mysqli_query($con,"insert into event(id,eventname,description,location,event_date,event_time,photo) values ('','$eventname', '$description', '$location','$event_date','$event_time','')"))
-	if(mysqli_query($con,"INSERT INTO `Booking` (`book_id`, `userid`, `eventid`) VALUES (NULL, '$user_id_int', '$event_id_int')"))
+	if(mysqli_query($con,"INSERT INTO `Booking` (`book_id`, `user_id`, `event_id`) VALUES (NULL, '$user_id_int', '$event_id_int')"))
         {
 		//echo "dF";
 //filling response array with values
