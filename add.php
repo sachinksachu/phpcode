@@ -13,7 +13,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $seat_s = $_POST['seat'];
     $event_date = $_POST['event_date'];
     $event_time = $_POST['event_time'];
-	 $category = $_POST['category'];
     //$photo = $_POST['photo'];
 	echo $eventname;
 
@@ -36,7 +35,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     {
 	 
        // if(mysqli_query($con,"insert into event(id,eventname,description,location,event_date,event_time,photo) values ('','$eventname', '$description', '$location','$event_date','$event_time','')"))
-	if(mysqli_query($con,"INSERT INTO `event` (`event_id`,`coord_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`,`seat`,`category`) VALUES (NULL,'$coord_id','$eventname', '$description', '$location', '$event_date', '$event_time', '$img','$seat', '$category')"))
+	if(mysqli_query($con,"INSERT INTO `event` (`event_id`,`coord_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`,`seat`) VALUES (NULL,'$coord_id','$eventname', '$description', '$location', '$event_date', '$event_time', '$img','$seat')"))
         {
 		$last_id = mysqli_insert_id($con);
 		//echo "dF";
@@ -52,7 +51,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		while($row = mysqli_fetch_assoc($result)) 
 		{
         
-			sendFCM("['$last_id','$eventname','$description','$location','$event_date','$event_time','$img']","EVENT","$category");
+			sendFCM("['$last_id','$eventname','$description','$location','$event_date','$event_time','$img']","EVENT",$row["token"]);
 			echo $row["token"];
 			echo $eventname;
     		}
@@ -74,8 +73,7 @@ else{
 function sendFCM($mess,$title,$id) {
 $url = 'https://fcm.googleapis.com/fcm/send';
 $fields = array (
-        //'to' => $id,
-	'to' => '/topics/'.$id,
+        'to' => $id,
         'notification' => array (
                 "body" => $mess,
                 "title" => $title,
