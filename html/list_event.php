@@ -6,7 +6,7 @@ echo "error connecting to db";
 if($_SERVER['REQUEST_METHOD']=='POST'){
 	$location = $_POST['location'];
 }
-$sql = "select * from event where location = '$location'";
+$sql = "select * from event where location = '$location' AND approve = 1 ";
 $result = $con->query($sql);
 
 if($result->num_rows > 0)
