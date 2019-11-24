@@ -4,11 +4,10 @@ ini_set('display_errors', 1);
 
 if(isset($_POST['seat']) && !empty(isset($_POST['seat']))){ 
     include_once("connection.php"); 
-  $event_id_s = $_POST['event_id']; 
-	//$seat = $_POST['seat'];
-  //$password = $_POST['password'];   
-  $event_id = (int)$event_id_s;
-    $sql = "UPDATE `event` SET `approve` = 1 WHERE `event`.`event_id` = $event_id"; 
+  $event_id = $_POST['event_id']; 
+	$seat = $_POST['seat'];
+  //$password = $_POST['password'];     
+    $sql = "UPDATE `event` SET `approve` = '1' WHERE `event`.`event_id` = $event_id"; 
 
    $result = $conn->query($sql); 
 	

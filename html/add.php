@@ -14,11 +14,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $event_date = $_POST['event_date'];
     $event_time = $_POST['event_time'];
 	 $category = $_POST['category'];
+	$approve_s = "0";
     //$photo = $_POST['photo'];
-	echo $eventname;
+	//echo $eventname;
 
 	$coord_id = (int)$coord_id_s;
 	$seat = (int)$seat_s;
+	$approve = (int)$approve_s;
     $ifp = fopen( "/var/www/html/image/".$eventname.".jpg", 'w' );
     //echo $ifp;
 	$img=$eventname.".jpg";
@@ -36,7 +38,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     {
 	 
        // if(mysqli_query($con,"insert into event(id,eventname,description,location,event_date,event_time,photo) values ('','$eventname', '$description', '$location','$event_date','$event_time','')"))
-	if(mysqli_query($con,"INSERT INTO `event` (`event_id`,`coord_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`,`seat`,`category`) VALUES (NULL,'$coord_id','$eventname', '$description', '$location', '$event_date', '$event_time', '$img','$seat', '$category')"))
+	if(mysqli_query($con,"INSERT INTO `event` (`event_id`,`coord_id`, `eventname`, `description`, `location`, `event_date`, `event_time`, `photo`,`seat`,`category`,`approve`) VALUES (NULL,'$coord_id','$eventname', '$description', '$location', '$event_date', '$event_time', '$img','$seat', '$category', 0)"))
         {
 		$last_id = mysqli_insert_id($con);
 		//echo "dF";
@@ -53,9 +55,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 		{
         
 			sendFCM("['$last_id','$eventname','$description','$location','$event_date','$event_time','$img']","EVENT","$category");
-			echo $row["token"];
-			echo $eventname;
+			//echo $row["token"];
+			//echo $eventname;
     		}
+		echo "success";
 	
         }
 //if some error occurred
